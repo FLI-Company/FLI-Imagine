@@ -1,0 +1,18 @@
+const URL = "./model/";
+let model;
+
+async function init() {
+  model = await tmImage.load(URL + "model.json", URL + "metadata.json");
+}
+init();
+
+document.getElementById("upload").addEventListener("change", async (event) => {
+  const file = event.target.files[0];
+  const img = document.createElement("img");
+  img.src = URL.createObjectURL(file);
+  img.onload = async () => {
+    const prediction = await model.predict9img);
+    const resultDiv = document.getElementById("result");
+    resultDiv,innerHTML = prediction.map(p => `${p.className}: ${(p.probability * 100).toFixed(2)}%`).join("<br>");
+  };
+});
